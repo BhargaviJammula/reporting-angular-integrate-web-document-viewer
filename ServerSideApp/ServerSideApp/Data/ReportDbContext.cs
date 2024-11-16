@@ -57,6 +57,19 @@ namespace ServerSideApp.Data {
                 };
                 SqlDataConnections.Add(newData);
             }
+
+            var schoolDBConnectionName = "SchoolDBConnection";
+            if (!SqlDataConnections.Any(x => x.Name == schoolDBConnectionName))
+            {
+                var newData = new SqlDataConnectionDescription
+                {
+                    Name = schoolDBConnectionName,
+                    DisplayName = "SchoolDB Data Connection",
+                    ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=SchoolDB;Integrated Security=True;MultipleActiveResultSets=True"
+                };
+                SqlDataConnections.Add(newData);
+            }
+
             SaveChanges();
         }
     }
