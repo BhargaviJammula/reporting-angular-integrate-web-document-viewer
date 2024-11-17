@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServerSideApp.Services;
 using ServerSideApp.Data;
+using DevExpress.XtraCharts;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDevExpressControls();
@@ -35,6 +36,10 @@ builder.Services.ConfigureReportingServices(configurator => {
 });
 builder.Services.AddDbContext<ReportDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ReportsDataConnectionString")));
 
+//builder.Services.AddSingleton<IScopedDbContextProvider<ReportDbContext>, ScopedDbContextProvider<ReportDbContext>>();
+
+builder.Services.AddScoped<ReportRepository>();
+DevExpress.Utils.DeserializationSettings.RegisterTrustedClass(typeof(ReportRepository));
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowCorsPolicy", builder => {
         // Allow all ports on local host.
